@@ -1,0 +1,6 @@
+set_pin_assignment {clk} { LOCATION = K14; }
+set_pin_assignment {rst_n} { LOCATION = K16; }
+
+set_pin_assignment {ser_tx} { LOCATION = F16; }
+set_pin_assignment {ser_rx} { LOCATION = E16; }
+
