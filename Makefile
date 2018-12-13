@@ -12,10 +12,14 @@ RISCV_OBJCOPY = $(RISCV_CROSS_COMPILE)objcopy
 TD ?= td
 
 VERILOG_SOURCES = top.v \
-		  wb_ram_1.0/rtl/verilog/wb_ram.v wb_ram_1.0/rtl/verilog/wb_ram_generic.v \
+		  wb_ram_1.0/rtl/verilog/wb_ram.v \
 		  wb_intercon.v wb_intercon_1.1/rtl/verilog/wb_mux.v \
 		  picorv32_wrapper.v \
 		  uart16550_1.5.4/rtl/verilog/uart_top.v uart16550_1.5.4/rtl/verilog/uart_wb.v uart16550_1.5.4/rtl/verilog/uart_regs.v uart16550_1.5.4/rtl/verilog/uart_receiver.v uart16550_1.5.4/rtl/verilog/uart_transmitter.v uart16550_1.5.4/rtl/verilog/uart_rfifo.v uart16550_1.5.4/rtl/verilog/uart_tfifo.v uart16550_1.5.4/rtl/verilog/raminfr.v uart16550_1.5.4/rtl/verilog/uart_sync_flops.v
+
+SIM_ONLY_SOURCES = wb_ram_1.0/rtl/verilog/wb_ram_generic.v
+
+SYNTHESIS_ONLY_SOURCES = wb_ram_al_bram.v al_ip/al_ip_bram_simple_dual_emb9k_4kbyte.v
 
 VVP = vvp
 
@@ -29,8 +33,8 @@ program: picorv32-wb-test.bit
 
 top_tb.vcd: top_tb.vvp firmware.hex
 
-top_tb.vvp: top_tb.v $(VERILOG_SOURCES)
-	iverilog $(IVFLAGS) -s top_tb -o top_tb.vvp top_tb.v $(VERILOG_SOURCES)
+top_tb.vvp: top_tb.v $(VERILOG_SOURCES) $(SIM_ONLY_SOURCES)
+	iverilog $(IVFLAGS) -s top_tb -o top_tb.vvp top_tb.v $(VERILOG_SOURCES) $(SIM_ONLY_SOURCES)
 wb_intercon.v: wb_intercon.conf
 	utils/wb_intercon_gen $< $@
 
@@ -54,5 +58,5 @@ firmware.hex: firmware.bin gen_4bword_hex
 firmware.mif: firmware.bin gen_mif
 	./gen_mif 1024 < firmware.bin > firmware.mif
 
-picorv32-wb-test.bit: picorv32-wb-test.al td.tcl $(VERILOG_SOURCES) firmware.mif
+picorv32-wb-test.bit: picorv32-wb-test.al td.tcl $(VERILOG_SOURCES) $(SYNTHESIS_ONLY_SOURCES) firmware.mif
 	$(TD) td.tcl
