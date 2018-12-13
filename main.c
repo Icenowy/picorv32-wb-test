@@ -27,6 +27,20 @@ int main()
 	(*(volatile unsigned int *)UART0_RBR_THR_DLL) = DLL_DEFAULT;
 	(*(volatile unsigned int *)UART0_LCR) = LCR_DEFAULT;
 
-	while(1)
+	while(1) {
 		uart_putchar('H');
+		uart_putchar('e');
+		uart_putchar('l');
+		uart_putchar('l');
+		uart_putchar('o');
+		uart_putchar(' ');
+		uart_putchar('W');
+		uart_putchar('o');
+		uart_putchar('r');
+		uart_putchar('l');
+		uart_putchar('d');
+		uart_putchar('!');
+		uart_putchar('\r');
+		uart_putchar('\r');
+	}
 }
