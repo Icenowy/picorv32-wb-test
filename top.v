@@ -6,10 +6,19 @@ module top(
 	output ser_tx
 );
 
+reg [1:0] internal_rst_count = 0;
+
+always @(posedge clk) begin
+	if (internal_rst_count != 2'b11)
+		internal_rst_count <= internal_rst_count + 1;
+end
+
+assign internal_rst = internal_rst_count != 2'b11;
+
 `include "wb_common.v"
 
 wire wb_clk = clk;
-wire wb_rst = ~rst_n;
+wire wb_rst = internal_rst ? internal_rst : ~rst_n;
 
 `include "wb_intercon.vh"
 
