@@ -23,3 +23,6 @@ td_*.log
 *.timing
 *.tsm
 *.bid
+
+wb_intercon.v
+wb_intercon.vh
