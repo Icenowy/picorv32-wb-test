@@ -35,10 +35,10 @@ wb_intercon.v: wb_intercon.conf
 wb_intercon.vh: wb_intercon.v
 
 start.o: start.S
-	$(RISCV_AS) -march=rv32i $< -o $@
+	$(RISCV_AS) -march=rv32imc $< -o $@
 
 main.o: main.c
-	$(RISCV_GCC) -march=rv32i -mabi=ilp32 -c $< -o $@
+	$(RISCV_GCC) -march=rv32imc -mabi=ilp32 -c $< -o $@
 
 firmware.elf: main.o start.o ldscript.lds
 	$(RISCV_LD) start.o main.o -m elf32lriscv -T ldscript.lds -o $@
