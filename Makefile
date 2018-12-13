@@ -24,6 +24,8 @@ VVP = vvp
 
 sim: top_tb.vcd
 bitstream: picorv32-wb-test.bit
+program: picorv32-wb-test.bit
+	$(TD) program.tcl
 
 top_tb.vcd: top_tb.vvp firmware.hex
 
