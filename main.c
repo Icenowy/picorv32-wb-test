@@ -41,6 +41,6 @@ int main()
 		uart_putchar('d');
 		uart_putchar('!');
 		uart_putchar('\r');
-		uart_putchar('\r');
+		uart_putchar('\n');
 	}
 }
