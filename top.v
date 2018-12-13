@@ -72,7 +72,12 @@ wire [35:0] picorv32_0_trace_data;
 assign wb_m2s_picorv32_cti = 0;
 assign wb_m2s_picorv32_bte = 0;
 
-picorv32_wb picorv32_0(
+picorv32_wb #(
+	.COMPRESSED_ISA(1),
+	.ENABLE_COUNTERS(1),
+	.ENABLE_MUL(1),
+	.ENABLE_DIV(1)
+) picorv32_0(
 	.trap(picorv32_0_trap),
 
 	.wb_clk_i(wb_clk),
