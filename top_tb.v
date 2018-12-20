@@ -14,16 +14,16 @@ initial begin
         $dumpvars(0,top_tb);
 	clk = 1;
 	rst = 0;
-	#10
+	#20.833
 	rst = 1;
-	#50
+	#104.167
 	rst = 0;
 	#1000000
 	$stop;
 end
 
 always begin
-	#10
+	#20.833
 	clk = ~clk;
 end
 
