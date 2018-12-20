@@ -1,0 +1,1 @@
+sdr_ctrl/rtl/core/sdrc_define.v

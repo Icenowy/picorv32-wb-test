@@ -15,11 +15,12 @@ VERILOG_SOURCES = top.v \
 		  wb_ram_1.0/rtl/verilog/wb_ram.v \
 		  wb_intercon.v wb_intercon_1.1/rtl/verilog/wb_mux.v \
 		  picorv32_wrapper.v \
-		  uart16550_1.5.4/rtl/verilog/uart_top.v uart16550_1.5.4/rtl/verilog/uart_wb.v uart16550_1.5.4/rtl/verilog/uart_regs.v uart16550_1.5.4/rtl/verilog/uart_receiver.v uart16550_1.5.4/rtl/verilog/uart_transmitter.v uart16550_1.5.4/rtl/verilog/uart_rfifo.v uart16550_1.5.4/rtl/verilog/uart_tfifo.v uart16550_1.5.4/rtl/verilog/raminfr.v uart16550_1.5.4/rtl/verilog/uart_sync_flops.v
+		  uart16550_1.5.4/rtl/verilog/uart_top.v uart16550_1.5.4/rtl/verilog/uart_wb.v uart16550_1.5.4/rtl/verilog/uart_regs.v uart16550_1.5.4/rtl/verilog/uart_receiver.v uart16550_1.5.4/rtl/verilog/uart_transmitter.v uart16550_1.5.4/rtl/verilog/uart_rfifo.v uart16550_1.5.4/rtl/verilog/uart_tfifo.v uart16550_1.5.4/rtl/verilog/raminfr.v uart16550_1.5.4/rtl/verilog/uart_sync_flops.v \
+		  sdr_ctrl/rtl/lib/async_fifo.v sdr_ctrl/rtl/lib/sync_fifo.v sdr_ctrl/rtl/top/sdrc_top.v sdr_ctrl/rtl/core/sdrc_core.v sdr_ctrl/rtl/core/sdrc_bank_fsm.v sdr_ctrl/rtl/core/sdrc_define.v sdr_ctrl/rtl/core/sdrc_bs_convert.v sdr_ctrl/rtl/core/sdrc_req_gen.v sdr_ctrl/rtl/core/sdrc_xfr_ctl.v sdr_ctrl/rtl/core/sdrc_bank_ctl.v sdr_ctrl/rtl/wb2sdrc/wb2sdrc.v
 
-SIM_ONLY_SOURCES = wb_ram_1.0/rtl/verilog/wb_ram_generic.v
+SIM_ONLY_SOURCES = wb_ram_1.0/rtl/verilog/wb_ram_generic.v sdram_sim/mt48lc2m32b2.v sdram_sim.v
 
-SYNTHESIS_ONLY_SOURCES = wb_ram_al_bram.v al_ip/al_ip_bram_simple_dual_emb9k_4kbyte.v
+SYNTHESIS_ONLY_SOURCES = wb_ram_al_bram.v al_ip/al_ip_bram_simple_dual_emb9k_4kbyte.v sdram_al_eg4s20.v
 
 VVP = vvp
 

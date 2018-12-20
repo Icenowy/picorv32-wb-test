@@ -15,6 +15,8 @@ end
 
 assign internal_rst = internal_rst_count != 2'b11;
 
+wire sdram_clk = clk;
+
 `include "wb_common.v"
 
 wire wb_clk = clk;
@@ -22,7 +24,7 @@ wire wb_rst = internal_rst ? internal_rst : ~rst_n;
 
 `include "wb_intercon.vh"
 
-assign wb_m2s_ram_rty = 0;
+assign wb_m2s_ram0_rty = 0;
 
 wb_ram #(
 	.depth('h1000),
@@ -72,6 +74,80 @@ uart_top uart0 (
 	.dsr_pad_i(1'b0),
 	.ri_pad_i(1'b0),
 	.dcd_pad_i(1'b0)
+);
+
+wire dram0_sdram_ras_n;
+wire dram0_sdram_cas_n;
+wire dram0_sdram_we_n;
+wire [10:0]dram0_sdram_addr;
+wire [1:0]dram0_sdram_ba;
+wire [31:0]dram0_sdram_dq;
+wire dram0_sdram_cs_n;
+wire [3:0]dram0_sdram_dm;
+wire dram0_sdram_cke;
+
+sdram dram0_sdram(
+	.clk(sdram_clk),
+	.ras_n(dram0_sdram_ras_n),
+	.cas_n(dram0_sdram_cas_n),
+	.we_n(dram0_sdram_we_n),
+	.addr(dram0_sdram_addr),
+	.ba(dram0_sdram_ba),
+	.dq(dram0_sdram_dq),
+	.cs_n(dram0_sdram_cs_n),
+	.dm(dram0_sdram_dm),
+	.cke(dram0_sdram_cke)
+);
+
+wire dram0_sdr_init_done;
+
+assign	wb_s2m_dram0_err = 0;
+assign	wb_s2m_dram0_rty = 0;
+
+sdrc_top #(
+	.SDR_DW(32),
+	.SDR_BW(4)
+) dram0 (
+	.cfg_sdr_width(2'b00),
+	.cfg_colbits(2'b00),
+
+	.wb_rst_i(wb_rst),
+	.wb_clk_i(wb_clk),
+
+	.wb_stb_i(wb_m2s_dram0_stb),
+	.wb_ack_o(wb_s2m_dram0_ack),
+	.wb_addr_i(wb_m2s_dram0_adr),
+	.wb_we_i(wb_m2s_dram0_we),
+	.wb_dat_i(wb_m2s_dram0_dat),
+	.wb_sel_i(wb_m2s_dram0_sel),
+	.wb_dat_o(wb_s2m_dram0_dat),
+	.wb_cyc_i(wb_m2s_dram0_cyc),
+	.wb_cti_i(wb_m2s_dram0_cti),
+
+	.sdram_clk(sdram_clk),
+	.sdram_resetn(~wb_rst),
+	.sdr_cs_n(dram0_sdram_cs_n),
+	.sdr_cke(dram0_sdram_cke),
+	.sdr_ras_n(dram0_sdram_ras_n),
+	.sdr_cas_n(dram0_sdram_cas_n),
+	.sdr_we_n(dram0_sdram_we_n),
+	.sdr_dqm(dram0_sdram_dm),
+	.sdr_ba(dram0_sdram_ba),
+	.sdr_addr(dram0_sdram_addr),
+	.sdr_dq(dram0_sdram_dq),
+
+	.sdr_init_done(dram0_sdr_init_done),
+	.cfg_req_depth(2'h3),
+	.cfg_sdr_en(1'b1),
+	.cfg_sdr_mode_reg(13'h033),
+	.cfg_sdr_tras_d(4'h4),
+	.cfg_sdr_trp_d(4'h2),
+	.cfg_sdr_trcd_d(4'h2),
+	.cfg_sdr_cas(3'h3),
+	.cfg_sdr_trcar_d(4'h7),
+	.cfg_sdr_twr_d(4'h1),
+	.cfg_sdr_rfsh(12'h100),
+	.cfg_sdr_rfmax(3'h6)
 );
 
 wire picorv32_0_trap;

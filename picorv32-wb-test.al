@@ -2,7 +2,7 @@
 <Project>
     <Project_Created_Time>2018-12-13 10:32:12</Project_Created_Time>
     <TD_Version>4.2.217</TD_Version>
-    <UCode>11011100</UCode>
+    <UCode>10101110</UCode>
     <Name>picorv32-wb-test</Name>
     <HardWare>
         <Family>EG4</Family>
@@ -26,6 +26,18 @@
             <File>wb_ram_1.0/rtl/verilog/wb_ram.v</File>
             <File>al_ip/al_ip_bram_simple_dual_emb9k_4kbyte.v</File>
             <File>wb_ram_al_bram.v</File>
+            <File>sdram_al_eg4s20.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_bank_ctl.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_bank_fsm.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_bs_convert.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_core.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_define.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_req_gen.v</File>
+            <File>sdr_ctrl/rtl/core/sdrc_xfr_ctl.v</File>
+            <File>sdr_ctrl/rtl/top/sdrc_top.v</File>
+            <File>sdr_ctrl/rtl/wb2sdrc/wb2sdrc.v</File>
+            <File>sdr_ctrl/rtl/lib/async_fifo.v</File>
+            <File>sdr_ctrl/rtl/lib/sync_fifo.v</File>
         </Verilog>
         <ADC_FILE>io.adc</ADC_FILE>
         <SDC_FILE>clocks.sdc</SDC_FILE>
